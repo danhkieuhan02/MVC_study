@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AppUser>
+
+<h3 class="text-center">USER LIST</h3>
+<div class="row">
+	<div class="col-12">
+		<a asp-action="Register" asp-controller="Account" asp-area="" class="btn btn-outline-success">Register</a>
+		<table class=" table table-bordered table-hover mt-2 text-center">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Username</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th>Setting</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var items in Model)
+				{
+					<tr>
+						<td>@items.Id</td>
+						<td>@items.Username</td>
+						<td>@items.Email</td>
+						<td>@(items.Role == UserRole.ROLEADMIN ? "Admin" : "Customer")</td>
+						<td>
+							<a asp-action="Update" asp-route-id="@items.Id" class="btn btn-outline-primary">Edit</a>
+							<a asp-action="Delete" asp-route-id="@items.Id" class="btn btn-outline-danger" onclick="return confirm('Are you sure? Your data will be delete.')">Remove</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<partial name="_Pager" model="Model">
+	</div>
+</div>
